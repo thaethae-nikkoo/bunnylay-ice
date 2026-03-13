@@ -1,0 +1,550 @@
+:root {
+    --bs-blue: #007bff;
+    --bs-indigo: #6610f2;
+    --bs-purple: #0b0fbb;
+    --bs-pink: #e83e8c;
+    --bs-red: #ff3e1d;
+    --bs-orange: #fd7e14;
+    --bs-yellow: #ffab00;
+    --bs-green: #71dd37;
+    --bs-teal: #20c997;
+    --bs-cyan: #03c3ec;
+    --bs-white: #fff;
+    --bs-gray: rgba(67, 89, 113, 0.6);
+    --bs-gray-dark: rgba(67, 89, 113, 0.8);
+    --bs-gray-25: rgba(67, 89, 113, 0.025);
+    --bs-gray-50: rgba(67, 89, 113, 0.05);
+    --bs-primary: #0b0fbb;
+    --bs-secondary: #8592a3;
+    --bs-success: #71dd37;
+    --bs-info: #03c3ec;
+    --bs-warning: #ffab00;
+    --bs-danger: #ff3e1d;
+    --bs-light: #fcfdfd;
+    --bs-dark: #233446;
+    --bs-gray: rgba(67, 89, 113, 0.1);
+    --bs-primary-rgb: 105, 108, 255;
+    --bs-secondary-rgb: 133, 146, 163;
+    --bs-success-rgb: 113, 221, 55;
+    --bs-info-rgb: 3, 195, 236;
+    --bs-warning-rgb: 255, 171, 0;
+    --bs-danger-rgb: 255, 62, 29;
+    --bs-light-rgb: 252, 253, 253;
+    --bs-dark-rgb: 35, 52, 70;
+    --bs-gray-rgb: 67, 89, 113;
+    --bs-white-rgb: 255, 255, 255;
+    --bs-black-rgb: 67, 89, 113;
+    --bs-body-color-rgb: 105, 122, 141;
+    --bs-body-bg-rgb: 245, 245, 249;
+    --bs-font-sans-serif: "Lato", "Public Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    --bs-font-monospace: "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+    --bs-root-font-size: 16px;
+    --bs-body-font-family: var(--bs-font-sans-serif);
+    --bs-body-font-size: 0.9375rem;
+    --bs-body-font-weight: 400;
+    --bs-body-line-height: 1.53;
+    --bs-body-color: #697a8d;
+    --bs-body-bg: #f5f5f9;
+}
+
+.search-toggle {
+    display: flex;
+    position: relative;
+    padding-right: 25px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-toggle::after {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%) rotate(0deg);
+    content: url(../img/down-arrow-white.svg);
+    transition: transform 0.5s ease, content 0s;
+}
+
+.search-toggle.expend::after {
+    transform: translateY(-50%) rotate(180deg);
+    content: url(../img/down-arrow-white.svg);
+}
+
+/* footer filter select တွေ ကို ဖျောက် */
+table.trans-table tfoot .dt-filter-row select {
+    display: none !important;
+}
+
+/* filter row ကို အလွန်ပုနေအောင် */
+table.trans-table tfoot .dt-filter-row th {
+    padding: 0 !important;
+    border: 0 !important;
+    height: 0 !important;
+    line-height: 0 !important;
+}
+
+/* thead အောက်က select ထွက်လာနိုင်တာကော ဖျောက် */
+table.trans-table thead select {
+    display: none !important;
+}
+
+.pwd-open-close {
+    cursor: pointer;
+}
+
+.sec-filter {
+    display: none;
+    padding: 40px;
+}
+
+.mb20 {
+    padding: 40px;
+}
+
+/* Select */
+.select2 .selection {
+    word-break: break-all;
+}
+
+.select2-selection--single {
+    border: 1px solid #d9dee2 !important;
+    height: 100%;
+}
+
+.select2-selection__rendered {
+    word-wrap: nowrap;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal !important;
+}
+
+.custom-select .select2-selection--single {
+    height: 37px !important;
+    overflow-y: hidden;
+}
+
+
+.select2-container--multi-select-theme .select2-search--inline {
+    width: 100%;
+}
+
+.select2-container--multi-select-theme .select2-search--inline .select2-search__field {
+    width: 100%;
+    height: 45px;
+    margin: 0;
+    padding: 15px 20px;
+    background: none;
+}
+
+.select2-container--multi-select-theme .select2-search--inline .select2-search__field:focus {
+    width: 100% !important;
+    outline: none;
+}
+
+.select2-selection__choice__remove {
+    padding: 0 10px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+}
+
+.select2-selection__choice__remove span {
+    font-size: 30px;
+}
+
+.select2-selection__choice__display {
+    display: flex;
+    padding: 0 15px;
+    align-items: center;
+}
+
+.select2-container--multi-select-theme .select2-selection--multiple .select2-selection__rendered {
+    display: flex;
+    gap: 15px;
+}
+
+.select2-selection__choice:first-child {
+    margin-left: 30px;
+}
+
+.select2-container--multi-select-theme .select2-selection--multiple .select2-selection__rendered li {
+    display: flex;
+    height: 35px;
+    border-radius: 5px;
+    flex-direction: row-reverse;
+}
+
+.select2-container--multi-select-theme .select2-selection--single .select2-selection__rendered {
+    padding: 0;
+}
+
+.select2-container--custom-theme .select2-selection--single {
+    display: flex;
+    height: 45px;
+    height: 45px;
+    padding: 8px 20px;
+    border-radius: 5px;
+    align-items: center;
+}
+
+.select2-container--custom-theme .select2-selection--single .select2-selection__rendered {
+    display: flex;
+    padding: 0;
+    color: var(--clr-neutral-100);
+    font-size: 14px;
+    align-items: center;
+    gap: 10px;
+}
+
+.select2-container--custom-theme .select2-selection--single .select2-selection__rendered::before {
+    width: 17px;
+    height: 10px;
+    background: url(../img/sort.svg) no-repeat;
+    content: "";
+}
+
+.select2-container--custom-theme .select2-selection--single {
+    width: 30px;
+    height: 100%;
+    background: url(../img/down-arrow-white.svg) no-repeat center;
+    background-position: right;
+}
+
+.select2-container .select2-selection--single {
+    width: 100%;
+    height: 100%;
+    background: url(../img/down-arrow.svg) no-repeat right !important;
+    background-position: right 0.75rem center !important;
+}
+
+.select2-container--custom-theme .select2-selection--single .select2-selection__arrow b {
+    border: none;
+}
+
+.select2-container--select-date .select2-selection--single,
+.select2-container--select-no-img .select2-selection--single {
+    display: flex;
+    height: 57px;
+    padding: 8px 20px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.select2-container--select-date .select2-selection--single .select2-selection__rendered,
+.select2-container--select-no-img .select2-selection--single .select2-selection__rendered {
+    display: flex;
+    padding: 0;
+    font-size: 14px;
+    align-items: center;
+    gap: 20px;
+}
+
+.select2-container--select-date .select2-selection--single .select2-selection__rendered.changed,
+.select2-container--select-no-img .select2-selection--single .select2-selection__rendered.changed {
+    color: var(--clr-neutral-900);
+}
+
+.select2-container--select-date .select2-selection--single .select2-selection__rendered::before {
+    width: 20px;
+    height: 20px;
+    background: url(../img/calendar.png) no-repeat center;
+    content: "";
+}
+
+.select2-container--select-date .select2-selection--single .select2-selection__arrow,
+.select2-container--select-no-img .select2-selection--single .select2-selection__arrow {
+    width: 30px;
+    height: 100%;
+    background: url(../img/down-arrow.svg) no-repeat center;
+    background-position: right;
+}
+
+.select2-container--select-date .select2-selection--single .select2-selection__arrow b,
+.select2-container--select-no-img .select2-selection--single .select2-selection__arrow b {
+    border: none;
+}
+
+.select2-container--open .select2-dropdown--below,
+.select2-container--open .select2-dropdown--above {
+    max-height: 205px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 2px 10px 0 rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.select2-container--open .select2-dropdown--below {
+    margin-top: 8px;
+}
+
+.select2-container--open .select2-dropdown--above {
+    top: -8px;
+}
+
+.select2-results__option {
+    padding: 10px 13px !important;
+    color: #2c3a4a !important;
+}
+
+.select2-results__option:hover {
+    transition: all 0.1s ease;
+}
+
+.select2-results__option:first-child {
+    border-radius: 5px 5px 0 0;
+}
+
+.select2-results__option:last-child {
+    border-radius: 0 0 5px 5px;
+}
+
+/* Select2 single select container ကို Bootstrap input style နဲ့တူအောင် */
+.select2-container--bootstrap-5 .select2-selection {
+    border-radius: 0.375rem !important;
+    /* Bootstrap 5 default = .25rem ~ .375rem */
+    border: 1px solid #ced4da !important;
+    min-height: calc(2.5rem + 2px);
+    padding: 0.375rem 0.75rem;
+}
+
+.select2-container--bootstrap-5 .select2-selection__rendered {
+    line-height: 1.5;
+}
+
+.select2-container--bootstrap-5 .select2-selection__arrow {
+    height: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+.pagination-nav .pagination .page-item .active {
+    border: 1px solid var(--bs-primary);
+    color: var(--bs-primary);
+}
+
+.detail-card .title span {
+    font-weight: bold !important;
+}
+
+.detail-card .title span,
+.detail-card .text span {
+    font-size: 15px !important;
+}
+
+.required-star {
+    color: red;
+}
+
+.errormsg,
+.error-message {
+    color: red !important;
+    font-size: 14px;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    display: block;
+}
+
+.error-message {
+    font-size: 12px;
+}
+
+.table.table-bordered.dataTable tbody td {
+    border-bottom-width: 1px;
+}
+
+.table.table-bordered.dataTable th {
+    border-bottom-width: 1px;
+    border-top-width: 1px;
+}
+
+.trans-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+/* === Width Utilities === */
+.trans-table th.w30,
+.trans-table td.w30 {
+    width: 30px !important;
+}
+
+.trans-table th.w50,
+.trans-table td.w50 {
+    width: 50px !important;
+}
+
+.trans-table th.w60,
+.trans-table td.w60 {
+    width: 60px !important;
+}
+
+.trans-table th.w70,
+.trans-table td.w70 {
+    width: 70px !important;
+}
+
+.trans-table th.w80,
+.trans-table td.w80 {
+    width: 80px !important;
+}
+
+.trans-table th.w90,
+.trans-table td.w90 {
+    width: 90px !important;
+}
+
+.trans-table th.w100,
+.trans-table td.w100 {
+    width: 100px !important;
+}
+
+.trans-table th.w110,
+.trans-table td.w110 {
+    width: 110px !important;
+}
+
+.trans-table th.w120,
+.trans-table td.w120 {
+    width: 120px !important;
+}
+
+.trans-table th.w130,
+.trans-table td.w130 {
+    width: 130px !important;
+}
+
+.trans-table th.w140,
+.trans-table td.w140 {
+    width: 140px !important;
+}
+
+.trans-table th.w150,
+.trans-table td.w150 {
+    width: 150px !important;
+}
+
+.trans-table th.w160,
+.trans-table td.w160 {
+    width: 160px !important;
+}
+
+.trans-table th.w170,
+.trans-table td.w170 {
+    width: 170px !important;
+}
+
+.trans-table th.w180,
+.trans-table td.w180 {
+    width: 180px !important;
+}
+
+.trans-table th.w200,
+.trans-table td.w200 {
+    width: 200px !important;
+}
+
+.trans-table th.w220,
+.trans-table td.w220 {
+    width: 220px !important;
+}
+
+.trans-table th.w230,
+.trans-table td.w230 {
+    width: 230px !important;
+}
+
+.trans-table th.w240,
+.trans-table td.w240 {
+    width: 240px !important;
+}
+
+.trans-table th.w250,
+.trans-table td.w250 {
+    width: 250px !important;
+}
+
+.trans-table th.w260,
+.trans-table td.w260 {
+    width: 250px !important;
+}
+
+.trans-table th.w270,
+.trans-table td.w270 {
+    width: 250px !important;
+}
+
+.trans-table th.w280,
+.trans-table td.w280 {
+    width: 280px !important;
+}
+
+.trans-table th.w300,
+.trans-table td.w300 {
+    width: 300px !important;
+}
+
+.trans-table th.w320,
+.trans-table td.w320 {
+    width: 320px !important;
+}
+
+.trans-table th.w330,
+.trans-table td.w330 {
+    width: 330px !important;
+}
+
+.trans-table th.w430,
+.trans-table td.w430 {
+    width: 430px !important;
+}
+
+.trans-table th.w530,
+.trans-table td.w530 {
+    width: 530px !important;
+}
+
+/* wrap စေချင်တဲ့ column */
+.wrap-text {
+    white-space: normal !important;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+/* nowrap လိုချင်တဲ့ column (date, amount, actions) */
+.nowrap {
+    white-space: nowrap !important;
+}
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Spinner */
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #ddd;
+    border-top: 5px solid #0b0fbb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
