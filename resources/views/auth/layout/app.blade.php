@@ -29,7 +29,7 @@
         });
     </script>
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/logo.png') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
 
     <!-- Core CSS -->

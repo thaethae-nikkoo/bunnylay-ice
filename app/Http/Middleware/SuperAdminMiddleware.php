@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class SuperAdminMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,15 +15,14 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-       $admin = auth()->user();
-       if (!$admin)
-       {
-        return redirect()->route("loginForm");
-       }
-       if (!$admin->is_super_admin && !$admin->is_admin)
-       {
-        abort(403);
-       }
-       return $next($request);
+        $admin = auth()->user();
+        if (!$admin) {
+            return redirect()->route("loginForm");
+        }
+
+        if (!$admin->is_super_admin) {
+            abort(403);
+        }
+        return $next($request);
     }
 }

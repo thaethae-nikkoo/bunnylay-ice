@@ -6,13 +6,13 @@
 <div class="content-wrapper">
     <!-- Content -->
     <div class="container-xxl flex-grow-1">
-        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">ပရိုဖိုင် /</span> ကျွန်ုပ်၏ ပရိုဖိုင်</h4>
+        <h6 class="fw-bold py-3 mb-1"><span class="text-muted fw-light">ပရိုဖိုင် /</span> ကျွန်ုပ်၏ ပရိုဖိုင်</h6>
         @if (session()->has('success'))
         <x-alert type="success" :message="session('success')" />
         @endif
         <div class="row">
             <div class="col-md-12">
-                <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                <ul class="nav nav-pills flex-column flex-md-row mb-2">
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('profile') }}"><i class="bx bx-user me-1"></i>
                             ကျွန်ုပ်၏
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
                             <div class="mt-2">
-                                <button class="btn btn-primary" data-kt-stepper-action="submit" type="submit">
+                                <button class="btn btn-sm btn-primary" data-kt-stepper-action="submit" type="submit">
                                     <span class="indicator-label">သိမ်းမည်</span>
                                     <span class="indicator-progress" style="display: none;">စောင့်ပါ...
                                         <span class="spinner-border spinner-border-sm"></span>

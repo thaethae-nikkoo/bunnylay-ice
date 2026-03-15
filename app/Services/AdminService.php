@@ -71,10 +71,12 @@ class AdminService implements AdminServiceInterface
      */
     private function prepareData(array $adminData)
     {
+        \Log::info(json_encode($adminData));
         $data = [
             'name' => $adminData['name'],
             'username' => $adminData['username'],
-            'phone' => $adminData['phone'] ?? null
+            'phone' => $adminData['phone'] ?? null,
+            'role' => $adminData['role']
         ];
         if (!empty($adminData['password'])) {
             $data['password'] = Hash::make($adminData['password']);

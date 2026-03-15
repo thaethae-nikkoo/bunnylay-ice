@@ -22,13 +22,14 @@ class AdminRequest extends BaseRequest
             'username' => ['required', 'string', Rule::unique('m_admins', 'username'), 'max:50', new Username],
             'password' => ['required', 'string', 'min:8', 'max:20', new Password],
             'confirm_password' => ['required', 'string', 'same:password'],
-            'phone' => ['nullable', 'max:20', new PhoneNumber]
+            'phone' => ['nullable', 'max:20', new PhoneNumber],
+            'role' => ['required']
         ];
         if ($this->isUpdate()) {
             $id = $this->route('admin_id');
             $rules['username'] = ['required', 'string', 'max:50', Rule::unique('m_admins', 'username')->ignore($id, 'admin_id'), new Username];
             $rules['password'] = ['nullable', 'string', 'min:8', 'max:20', new Password];
-            $rules['confirm_password'] = ['nullable', 'string', 'same:password'];
+            $rules['confirm_password'] = ['required_with:password', 'same:password', 'max:20'];
         }
         return $rules;
     }

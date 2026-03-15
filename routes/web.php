@@ -32,29 +32,30 @@ Route::get('forget-password-page', [AuthController::class, 'forgetPass'])->name(
 Route::get('forget-password', [AuthController::class, 'forgetPassPage'])->name('forgetPasswordFunction');
 Route::get('password-update-page', [AuthController::class, 'passUpdatePage'])->name('passwordUpdatePage')->middleware('web');
 Route::post('password-update', [AuthController::class, 'updatePassword'])->name('passwordUpdate');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::prefix('admin')->middleware(['admin'])->group(function () {
-
+Route::middleware(['admin'])->group(function () {
     Route::prefix('dashboard')->group(function () {
         Route::get('', [DashboardController::class, 'dashboard'])->name('dashboard');
-
     });
-
-    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
     Route::prefix('profile')->group(function () {
         Route::get('detail', [AuthController::class, 'profile'])->name('profile');
         Route::post('update', [AuthController::class, 'updateProfile'])->name('updateProfile');
         Route::get('password-management', [AuthController::class, 'psmanage'])->name('passwordManagement');
     });
+});
 
+Route::middleware(['superAdmin'])->group(function () {
     //-------------- admin routes --------------
-    Route::get('list', [AdminController::class, 'list'])->name('adminLists');
-    Route::get('create', [AdminController::class, 'create'])->name('adminCreate');
-    Route::post('store', [AdminController::class, 'store'])->name('adminStore');
-    Route::post('manage-admin', [AdminController::class, 'manageAdmin'])->name('manageAdmin');
-    Route::get('profile', [AdminController::class, 'profile'])->name('adminProfile');
-    Route::group(['prefix' => '{admin_id}', 'where' => ['admin_id' => '[0-9]+'], 'middleware' => ['adminIsValidResource:admin']], function () {
-        Route::get('edit', [AdminController::class, 'edit'])->name('adminEdit');
-        Route::patch('update', [AdminController::class, 'update'])->name('adminUpdate');
+    Route::prefix('admin')->group(function () {
+        Route::get('list', [AdminController::class, 'list'])->name('adminLists');
+        Route::get('create', [AdminController::class, 'create'])->name('adminCreate');
+        Route::post('store', [AdminController::class, 'store'])->name('adminStore');
+        Route::post('manage-admin', [AdminController::class, 'manageAdmin'])->name('manageAdmin');
+        Route::get('profile', [AdminController::class, 'profile'])->name('adminProfile');
+        Route::group(['prefix' => '{admin_id}', 'where' => ['admin_id' => '[0-9]+'], 'middleware' => ['adminIsValidResource:admin']], function () {
+            Route::get('edit', [AdminController::class, 'edit'])->name('adminEdit');
+            Route::patch('update', [AdminController::class, 'update'])->name('adminUpdate');
+        });
     });
 });
