@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
     {
         DB::table('m_admins')->insert([
             [
-                'name' => 'Admin',
+                'name' => 'Super Admin',
                 'username' => 'admin',
                 'password' => Hash::make('admin1234'),
                 'phone' => '09987645312',
@@ -24,15 +24,15 @@ class AdminSeeder extends Seeder
                 'created_by' => 1,
                 'created_at' => now()
             ],
-            // [
-            //     'name' => 'Staff',
-            //     'username' => 'staff123',
-            //     'password' => Hash::make('staff123@#'),
-            //     'phone' => '09897435234',
-            //     'role' => 2,
-            //     'created_by' => 1,
-            //     'created_at' => now()
-            // ]
+            [
+                'name' => 'Admin',
+                'username' => 'normal_admin',
+                'password' => Hash::make('admin1234'),
+                'phone' => '09987645444',
+                'role' => 2,
+                'created_by' => 1,
+                'created_at' => now()
+            ],
         ]);
     }
 }

@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="mt-2">
-                                <button class="btn btn-primary" data-kt-stepper-action="submit" type="submit">
+                                <button class="btn btn-sm btn-primary" data-kt-stepper-action="submit" type="submit">
                                     <span class="indicator-label">သိမ်းမည်</span>
                                     <span class="indicator-progress" style="display: none;">စောင့်ပါ...
                                         <span class="spinner-border spinner-border-sm"></span>

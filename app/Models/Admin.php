@@ -71,7 +71,7 @@ class Admin extends Authenticatable
     }
 
     /**
-     * check if the admin is superAdmin
+     * check if the admin isnormalAdmin
      *
      * @return boolean
      */
@@ -79,4 +79,15 @@ class Admin extends Authenticatable
     {
         return $this->role == config('constants.auth.admin') ? true : false;
     }
+
+    /**
+     * check if the admin is superAdmin
+     *
+     * @return boolean
+     */
+    public function getIsSuperAdminAttribute(): bool
+    {
+        return $this->role == config('constants.auth.super_admin') ? true : false;
+    }
+
 }

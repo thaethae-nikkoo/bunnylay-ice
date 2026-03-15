@@ -6,12 +6,12 @@
 </x-delete-confirm>
 <div class="container-xxl flex-grow-1">
     <div class="d-flex justify-content-between">
-        <h4 class="fw-bold mb-4"><span class="fw-light">အသုံးပြုသူစာရင်း /</span>
-            {{ __('template_names.list_title_text') }} </h4>
+        <h6 class="fw-bold mb-4"><span class="fw-light">အသုံးပြုသူစာရင်း /</span>
+            {{ __('template_names.list_title_text') }} </h6>
 
         <!-- Bordered Table -->
         <h5 class="d-flex justify-content-end">
-            <a href="{{ route('adminCreate') }}" class="btn btn-primary">
+            <a href="{{ route('adminCreate') }}" class="btn btn-sm btn-primary">
                 {{ __('template_names.create_title_text') }}
             </a>
         </h5>
@@ -23,9 +23,9 @@
     <x-alert type="danger" :message="session('error')" />
     @endif
     <div class="card">
-        <div class="card-body">
+        <div class="card-body table-card">
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered datatable table-hover">
+                <table class="table table-bordered table-striped datatable table-hover">
                     <thead>
                         <tr>
                             <th>စဥ်</th>
@@ -49,11 +49,11 @@
                                 {{ $admin->role_name }}
                             </td>
                             <td>
-                                <a class="btn btn-sm btn-primary mx-3"
+                                <a class="btn btn-xs btn-primary mx-1"
                                     href="{{ route('adminEdit', $admin->admin_id) }}"><i class="bx bx-edit-alt"></i>
                                 </a>
                                 @if ($admin->admin_id != Auth::user()->admin_id)
-                                <a class="btn btn-sm btn-danger show-delete-modal" data-bs-toggle="modal"
+                                <a class="btn btn-xs btn-danger show-delete-modal" data-bs-toggle="modal"
                                     data-bs-target="#delete_confirm" data-id="{{ $admin->admin_id }}"
                                     data-resource-name="admin_id" data-action="ban"
                                     data-url="{{ route('manageAdmin') }}" href="javascript:void(0);"> <i
@@ -74,14 +74,13 @@
 </div>
 
 <div class="container-xxl flex-grow-1">
-    <h4 class="fw-bold my-4"><span class="fw-light">Ban ထားသောစာရင်း /</span>
-        {{ __('template_names.list_title_text') }} </h4>
+    <h6 class="fw-bold my-4"><span class="fw-light">Ban ထားသောစာရင်း /</span>
+        {{ __('template_names.list_title_text') }} </h6>
     <!-- Bordered Table -->
     <div class="card">
-
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered datatable table-hover">
+                <table class="table table-bordered datatable  table-hover">
                     <thead>
                         <tr>
                             <th>စဥ်</th>

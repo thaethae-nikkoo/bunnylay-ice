@@ -255,7 +255,6 @@ table.trans-table thead select {
 
 .select2-container--select-date .select2-selection--single .select2-selection__arrow,
 .select2-container--select-no-img .select2-selection--single .select2-selection__arrow {
-    width: 30px;
     height: 100%;
     background: url(../img/down-arrow.svg) no-repeat center;
     background-position: right;
@@ -541,6 +540,25 @@ table.trans-table thead select {
     border-top: 5px solid #0b0fbb;
     border-radius: 50%;
     animation: spin 1s linear infinite;
+}
+
+.table thead {
+    vertical-align: bottom;
+    background-color: #19325c !important;
+    color: #fff !important;
+
+}
+
+.table thead tr th{
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    color: #fff !important;
+    font-size: 14px !important;
+}
+
+.github-button{
+    color: #19325c;
+    font-weight: bold;
 }
 
 @keyframes spin {
