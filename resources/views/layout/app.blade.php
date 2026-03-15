@@ -27,16 +27,16 @@
             },
         });
     </script>
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon.ico') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/logo.png') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/boxicons.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{ asset('assets/css/theme-default.css') }}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/perfect-scrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/clockpicker.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/jquery-clockpicker.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}" class="template-customizer-core-css" />
     <script src="{{ asset('assets/js/core/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/jquery-clockpicker.min.js') }}"></script>
     <script src="{{ asset('assets/js/core/clockpicker.min.js') }}"></script>

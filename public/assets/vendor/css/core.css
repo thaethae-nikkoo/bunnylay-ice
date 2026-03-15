@@ -2227,7 +2227,7 @@ progress {
   opacity: 1;
 }
 .form-control::file-selector-button {
-  padding: 0.4375rem 0.875rem;
+  padding: 0.2375rem 0.875rem;
   margin: -0.4375rem -0.875rem;
   -webkit-margin-end: 0.875rem;
           margin-inline-end: 0.875rem;
@@ -6227,9 +6227,9 @@ a.invert-bg-dark:hover, a.invert-bg-dark:focus {
   font-size: 0.75rem;
   letter-spacing: 1px;
 }
-.table:not(.table-dark) th {
+/* .table:not(.table-dark) th {
   color: #566a7f;
-}
+} */
 
 .table-border-bottom-0 tr:last-child td,
 .table-border-bottom-0 tr:last-child th {

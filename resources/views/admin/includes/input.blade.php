@@ -47,7 +47,7 @@
     @if(isset($_resource))
     <div class="col-md-6 col-lg-4 mt-3 parent" id="pwd-btn-cont">
         <div class="form-group mt-4">
-            <button class="btn btn-primary btn-md mt-1" type="button" id="update-pwd-btn">စကားဝှက်ပြောင်းလဲမည်</button>
+            <button class="btn btn-primary btn-sm mt-1" type="button" id="update-pwd-btn">စကားဝှက်ပြောင်းလဲမည်</button>
         </div>
     </div>
     @endif
@@ -55,13 +55,13 @@
         <label for="phone" class="form-label">ဖုန်းနံပါတ်</label>
         <input type="text" class="form-control shadow-none" name="phone" id="phone" value="{{ old('phone', $phone) }}" />
     </div>
-    {{-- <div class="col-lg-4 col-md-6 col-sm-12 mt-3 selection">
+    <div class="col-lg-4 col-md-6 col-sm-12 mt-3 selection">
         <label for="role" class="form-label">လုပ်ပိုင်ခွင့် <span class="required-star">*</span></label>
         <div class="role-error-element role-select custom-select">
             <select class="form-select form-control shadow-none select role single-select" name="role" id="role">
-                <option value="1">အက်ထ်မင်</option>
-                <option value="2">ဝန်ထမ်း</option>
+                <option value="1">Super Admin</option>
+                <option value="2">Admin</option>
             </select>
         </div>
-    </div> --}}
+    </div>
 </div>

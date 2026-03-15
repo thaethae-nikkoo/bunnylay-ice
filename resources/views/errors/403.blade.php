@@ -1,30 +1,16 @@
 @extends('layout.app')
 @section('content')
 <link rel="stylesheet" href="{{asset('assets/css/errors.css')}}" />
-<div id="background"></div>
-<div class="top">
-    <h1>403!</h1>
-    <h3>Access Denied!</h3>
-</div>
-<div class="container">
-    <div class="ghost-copy">
-        <div class="one"></div>
-        <div class="two"></div>
-        <div class="three"></div>
-        <div class="four"></div>
-    </div>
-    <div class="ghost">
-        <div class="face">
-            <div class="eye"></div>
-            <div class="eye-right"></div>
-            <div class="mouth"></div>
+<div class="container-xxl container-p-y">
+    <div class="misc-wrapper">
+        <h2 class="mb-2 mx-2">Permission Denied! :(</h2>
+        <p class="mb-4 mx-2">Oops! 😖 တောင်းဆိုထားသော URL ကို ဝင်ရောက်ရန်ခွင့်မပြုပါ။.</p>
+        <a href="{{route('index')}}" class="btn btn-primary">မူလနေရာသို့ပြန်သွားရန်</a>
+        <div class="mt-3">
+            <img src="{{asset('assets/img/403_no_bg.png')}}" alt="page-misc-error-light" width="500" class="img-fluid"
+                data-app-dark-img="illustrations/page-misc-error-dark.png"
+                data-app-light-img="illustrations/page-misc-error-light.png" />
         </div>
-    </div>
-    <div class="shadow"></div>
-</div>
-<div class="bottom">
-    <div class="buttons">
-        <a href=""><button class="btn">Home</button></a>
     </div>
 </div>
 

@@ -36,7 +36,7 @@ class AdminController extends Controller
      * Admin store data
      *
      * @param AdminRequest $request
-     * @return View
+     * @return
      */
     public function store(AdminRequest $request)
     {
@@ -92,7 +92,7 @@ class AdminController extends Controller
     /**
      * Delete Admin
      *
-     * @param AdminDeleteRequest $request
+     * @param AdminManagementRequest $request
      * @return View
      */
     public function manageAdmin(AdminManagementRequest $request)

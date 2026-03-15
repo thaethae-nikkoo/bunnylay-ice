@@ -6236,7 +6236,6 @@ a.fc-more:hover {
 table.dataTable {
     clear: both;
     margin-top: 15px !important;
-    margin-bottom: 15px !important;
     max-width: none !important;
     border-collapse: separate !important
 }
@@ -6346,7 +6345,7 @@ table.dataTable thead .sorting_desc:before,
 table.dataTable thead .sorting_desc_disabled:after,
 table.dataTable thead .sorting_desc_disabled:before {
     position: absolute;
-    bottom: .9em;
+    bottom: .2em;
     display: block;
     opacity: .5
 }
@@ -6358,7 +6357,7 @@ table.dataTable thead .sorting_desc:before,
 table.dataTable thead .sorting_desc_disabled:before {
     right: 1em;
     content: "\2191";
-    font-size: 15px
+    font-size: 12px
 }
 
 table.dataTable thead .sorting:after,
@@ -6368,7 +6367,7 @@ table.dataTable thead .sorting_desc:after,
 table.dataTable thead .sorting_desc_disabled:after {
     right: .5em;
     content: "\2193";
-    font-size: 15px
+    font-size: 12px
 }
 
 table.dataTable thead .sorting_asc:before,
