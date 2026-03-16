@@ -13,12 +13,14 @@ class ContractsServiceProvider extends ServiceProvider
     {
         $this->bindContracts('dao', [
             'AdminDao',
-            'AuthDao'
+            'AuthDao',
+            'PaymentMethodDao',
         ]);
 
         $this->bindContracts('services', [
             'AdminService',
             'AuthService',
+            'PaymentMethodService',
         ]);
     }
 

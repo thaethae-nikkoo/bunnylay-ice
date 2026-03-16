@@ -15,4 +15,7 @@ return [
         'adminEdit',
         'adminProfile',
     ],
+    'payment_method' => [
+        'payment_method.list'
+    ],
 ];
