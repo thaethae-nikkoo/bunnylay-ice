@@ -12,8 +12,10 @@ use App\Models\GoodSale;
 use App\Models\GoodSalePayment;
 use App\Models\Income;
 use App\Models\Item;
+use App\Models\PaymentMethod;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminIsValidResourceMiddleware
@@ -34,41 +36,11 @@ class AdminIsValidResourceMiddleware
             case "admin":
                 $res = Admin::findOrFail($request->route('admin_id'));
                 break;
-            case "item":
-                $res = Item::findOrFail($request->route('item_id'));
+            case "payment_method":
+                $res = PaymentMethod::findOrFail(Route::input('payment_method_id'));
                 break;
-            case "good_purchase":
-                $res = GoodPurchase::findOrFail($request->route('good_purchase_id'));
-                break;
-            case "purchase_payment":
-                $res = GoodPurchasePayment::findOrFail($request->route('purchase_payment_id'));
-                break;
-            case "good_sale":
-                $res = GoodSale::findOrFail($request->route('good_sale_id'));
-                break;
-            case "expense":
-                $res = Expense::findOrFail($request->route('expense_id'));
-                break;
-            case "income":
-                $res = Income::findOrFail($request->route('income_id'));
-                break;
-            case "sale_payment":
-                $res = GoodSalePayment::findOrFail($request->route('sale_payment_id'));
-                break;
-            case "export":
-                $res = Export::with([
-                                'exportItems',
-                                'payments' => function ($query) {
-                                    $query->orderBy('payment_date', 'asc');
-                                }
-                            ])
-                            ->where('export_id', $request->route('export_id'))
-                            ->firstOrFail();
-                break;
-            case "export_payment":
-                $res = ExportPayment::with('export')->where('export_payment_id',$request->route('export_payment_id'))
-                                    ->firstOrFail();
-                break;
+            default:
+                $res = null;
         }
         $controller->_resource = $res;
         if (!$request->is("api/*")) {

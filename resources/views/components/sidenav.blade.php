@@ -56,6 +56,12 @@
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Pages</span>
         </li>
+        <li class="menu-item @if(is_active_route(config('sidemenus.profile'))) active @endif">
+            <a href="{{route('payment_method.list')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user-circle"></i>
+                <div data-i18n="Analytics">ငွေပေးချေမှုအမျိုးအစား</div>
+            </a>
+        </li>
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text"></span>
         </li>

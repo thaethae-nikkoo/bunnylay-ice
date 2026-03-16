@@ -3,12 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ExpenseController;
-use App\Http\Controllers\ExportController;
-use App\Http\Controllers\GoodPurchaseController;
-use App\Http\Controllers\GoodSaleController;
-use App\Http\Controllers\IncomeController;
-use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PaymentMethodController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,4 +53,16 @@ Route::middleware(['superAdmin'])->group(function () {
             Route::patch('update', [AdminController::class, 'update'])->name('adminUpdate');
         });
     });
+
+    //-------------- payment methods routes --------------
+    Route::prefix('payment_methods')->name('payment_method.')->group(function () {
+        Route::get('list', [PaymentMethodController::class, 'list'])->name('list');
+        Route::post('create', [PaymentMethodController::class, 'create'])->name('create');
+        Route::group(['prefix' => '{payment_method_id}', 'where' => ['payment_method_id' => '[0-9]+'], 'middleware' => ['adminIsValidResource:payment_method']], function () {
+            Route::patch('update', [PaymentMethodController::class, 'update'])->name('update');
+            Route::post('change-status', [PaymentMethodController::class, 'changeStatus'])->name('changeStatus');
+            Route::post('delete', [PaymentMethodController::class, 'delete'])->name('delete');
+        });
+    });
+
 });
