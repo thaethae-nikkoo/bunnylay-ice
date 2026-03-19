@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('machines', function (Blueprint $table) {
             $table->increments('machine_id');
             $table->string('machine_name', 100);
-            $table->string('product_type')->comment('1 ice block, 2 ice tube, 3 ice cube');
+            $table->string('product_type')->comment('1 ice block, 2 ice tube, 3 ice cube, 4 flake ice');
             $table->string('status')->comment('1 active, 2 inactive')->default(1);
             $table->string('code', 20)->nullable();
             $table->string('capacity_mode')->comment('hour,shift,day,night,whole_day');
