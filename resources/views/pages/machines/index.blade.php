@@ -27,30 +27,32 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered table-striped datatable table-hover w-100" id="machines_table">
+                <table class="table table-bordered table-striped datatable table-hover w-100 trans-table" id="machines_table">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Machine Name</th>
-                            <th>Code</th>
-                            <th>ရေခဲအမျိုးအစား</th>
-                            <th>ရေခဲထွက်အားအချိန်</th>
-                            <th>ရေခဲထွက်အား</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th class="w150">Machine Name</th>
+                            <th class="w150">Code</th>
+                            <th class="w120">ရေခဲအမျိုးအစား</th>
+                            <th class="w100">အချိန်</th>
+                            <th class="w100">ထွက်အား</th>
+                            <th class="w250">Remark</th>
+                            <th class="w150">Status</th>
+                            <th class="w150">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($machines as $index => $machine)
                         <tr data-id="{{ $machine->machine_id }}">
                             <td>{{ $index + 1 }}</td>
-                            <td>{{ $machine->machine_name }}</td>
-                            <td>{{ $machine->code }}</td>
-                            <td>{{ config('constants.machine_product_type_label')[$machine->product_type] ?? '' }}</td>
-                            <td>{{ config('constants.machine_capacity_mode_label')[$machine->capacity_mode] ?? '' }}
+                            <td class="text-wrap w150">{{ $machine->machine_name }}</td>
+                            <td class="text-wrap w150">{{ $machine->code }}</td>
+                            <td class="w120">{{ config('constants.machine_product_type_label')[$machine->product_type] ?? '' }}</td>
+                            <td class="w100">{{ config('constants.machine_capacity_mode_label')[$machine->capacity_mode] ?? '' }}
                             </td>
-                            <td>{{ $machine->capacity_value }}</td>
-                            <td>
+                            <td class="w100">{{ $machine->capacity_value }}</td>
+                            <td class="text-wrap w250">{{ $machine->remark }}</td>
+                            <td class="w150">
                                 <span
                                     class="badge bg-{{ $machine->status == config('constants.machine_status.active') ? 'success' : 'danger' }}">
                                     {{ config('constants.machine_status_label')[$machine->status] ?? '' }}
