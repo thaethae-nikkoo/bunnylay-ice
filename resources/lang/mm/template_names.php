@@ -10,9 +10,4 @@ return [
     "cancel_btn_text" => "မလုပ်တော့ပါ",
     "sure_btn" => "သေချာပါသည်",
     "search" => "ရှာရန်",
-    "export_payment_description" => [
-        "truck_fee" => "ကားခ",
-        "duty_fee" => "ဂျူတီကြေး",
-        "others" => "အခြား",
-    ],
  ];
