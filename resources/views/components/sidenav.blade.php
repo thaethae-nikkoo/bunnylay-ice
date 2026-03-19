@@ -52,6 +52,13 @@
 
             </ul>
         </li>
+
+        <li class="menu-item @if(is_active_route(config('sidemenus.machines'))) active @endif">
+            <a href="{{route('machines.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-cog"></i>
+                <div data-i18n="Analytics">စက်များ</div>
+            </a>
+        </li>
         @endif
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Pages</span>

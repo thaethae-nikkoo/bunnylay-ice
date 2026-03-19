@@ -2,6 +2,8 @@
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 if (!function_exists('add_script')) {
@@ -34,7 +36,8 @@ if (!function_exists('add_script_if')) {
         if (strpos($script, '/') !== 0) {
             $script = '/scripts/' . str_replace('.', '/', $script) . '.js';
         }
-        if (\file_exists($_SERVER['DOCUMENT_ROOT'] . $script)) {
+        $path = $_SERVER['DOCUMENT_ROOT'] . $script;
+        if (\file_exists($path)) {
             return add_script($script);
         }
         return '';
@@ -194,9 +197,11 @@ if (!function_exists('dmy_to_ymd')) {
      * @param string|null $date
      * @return Carbon|null
      */
-      function dmy_to_ymd(?string $input): ?Carbon
+    function dmy_to_ymd(?string $input): ?Carbon
     {
-        if (!$input) return null;
+        if (!$input) {
+            return null;
+        }
 
         try {
             // Accept both "DD/MM/YYYY" and "YYYY-MM-DD"
@@ -233,10 +238,14 @@ if (!function_exists('format_date_time')) {
          */
         function formatViss($viss, bool $withUnit = true): string
         {
-            if ($viss === null || $viss === '') return '';
+            if ($viss === null || $viss === '') {
+                return '';
+            }
 
             $normalized = str_replace([',', ' '], '', (string)$viss);
-            if (!is_numeric($normalized)) return (string)$viss;
+            if (!is_numeric($normalized)) {
+                return (string)$viss;
+            }
 
             $neg = ((float)$normalized) < 0;
             $abs = abs((float)$normalized);

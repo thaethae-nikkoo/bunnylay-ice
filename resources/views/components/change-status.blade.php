@@ -9,7 +9,7 @@
                     </div>
                     <div class="modal-body">
                         <h4 class="d-block mx-auto text-center text-danger fw-bold"> သေချာပါသလား? </h4>
-                        <p class="font18 text-center my-3">ငွေပေးချေမှုအမျိုးအစား အခြေနေပြင်ဆင်ပါမည်။</p>
+                        <p class="font18 text-center my-3"> အခြေနေပြင်ဆင်ပါမည်။</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">

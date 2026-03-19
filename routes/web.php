@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MachineController;
 use App\Http\Controllers\PaymentMethodController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,6 +42,16 @@ Route::middleware(['admin'])->group(function () {
 });
 
 Route::middleware(['superAdmin'])->group(function () {
+    //-------------- machine routes --------------
+    Route::prefix('machines')->name('machines.')->group(function () {
+        Route::get('', [MachineController::class, 'index'])->name('index');
+        Route::post('', [MachineController::class, 'store'])->name('store');
+        Route::get('{id}/edit', [MachineController::class, 'edit'])->name('edit');
+        Route::patch('{id}', [MachineController::class, 'update'])->name('update');
+        Route::post('{id}/delete', [MachineController::class, 'destroy'])->name('destroy');
+        Route::post('{id}/status', [MachineController::class, 'updateStatus'])->name('status');
+    });
+
     //-------------- admin routes --------------
     Route::prefix('admin')->group(function () {
         Route::get('list', [AdminController::class, 'list'])->name('adminLists');

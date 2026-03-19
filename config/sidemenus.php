@@ -18,4 +18,7 @@ return [
     'payment_method' => [
         'payment_method.list'
     ],
+    'machines' => [
+        'machines.index',
+    ],
 ];
