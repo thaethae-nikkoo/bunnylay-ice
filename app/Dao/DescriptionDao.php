@@ -3,12 +3,11 @@
 namespace App\Dao;
 
 use App\Models\DescriptionGroup;
-use App\Contracts\Dao\DescriptionDaoInterface;
 use App\Models\Description;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
-class DescriptionDao implements DescriptionDaoInterface
+class DescriptionDao
 {
     /**
      * Get Description List
@@ -18,7 +17,7 @@ class DescriptionDao implements DescriptionDaoInterface
      */
     public function getDescriptionList(int $gpId)
     {
-        return Description::where('description_gp_id', $gpId)->get();
+        return Description::where('description_gp_id', $gpId)->orderBy('description_id', 'desc')->get();
     }
 
     /**

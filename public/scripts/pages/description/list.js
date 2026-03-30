@@ -1,29 +1,24 @@
 $(document).ready(function () {
     const inputModal = $("#description_modal");
 
-    /**
-     * 1. INITIALIZE DATATABLE
-     * Disabling 'ordering' ensures our 'prepend' logic works visually.
-     */
-    let table;
-    if ($.fn.dataTable.isDataTable('#description-table')) {
-        table = $('#description-table').DataTable();
-    } else {
-        table = $('#description-table').DataTable({
-            "ordering": false,
-            "pageLength": 25,
-            "retrieve": true
-        });
+    // 1. INITIALIZE DATATABLE
+    // ordering: false is required to prevent DataTables from overriding our prepend
+    let table = $('#description-table').DataTable({
+        "ordering": false,
+        "pageLength": 25,
+        "retrieve": true
+    });
+
+    let editUrl, createUrl = vars("create_url"), isEdit = false, currentRow;
+
+    // --- Helper: Reset Button State ---
+    function resetBtnState(btn) {
+        btn.attr("disabled", false);
+        $(".indicator-progress").hide();
+        $(".indicator-label").show();
     }
 
-    let editUrl;
-    let createUrl = vars("create_url");
-    let isEdit = false;
-    let currentRow;
-
-    /**
-     * SHOW ALERT MESSAGE
-     */
+    // --- Helper: Show Alert ---
     function showAlert(type, message) {
         const icon = type === 'success' ? 'bx-check-circle' : 'bx-error-circle';
         const alertHtml = `
@@ -31,57 +26,34 @@ $(document).ready(function () {
                 <i class='bx ${icon} me-2'></i>
                 <span>${message}</span>
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        `;
+            </div>`;
         $('#alert-container').html(alertHtml);
         setTimeout(() => { $('.alert').alert('close'); }, 5000);
     }
 
-    /**
-     * PREPARE MODAL CONTENT
-     */
-    function updateModalContent() {
-        $(".errormsg").remove();
-        $("input").removeClass("is-invalid");
-        $("#name").val("");
-
-        if (inputModal.data("editmode") == true) {
-            $(".modal-title").text("Edit Description");
-            isEdit = true;
-        } else {
-            $(".modal-title").text("Add New Description");
-            isEdit = false;
-        }
-    }
-
-    /**
-     * CREATE BUTTON CLICK
-     */
+    // --- Modal Logic ---
     $(document).on("click", "#create-btn", function () {
-        inputModal.data("editmode", false);
-        updateModalContent();
+        isEdit = false;
+        $(".modal-title").text("Add New Description");
+        $("#name").val("").removeClass("is-invalid");
+        $(".errormsg").remove();
         inputModal.modal("show");
     });
 
-    /**
-     * EDIT BUTTON CLICK
-     * Uses .attr() to fetch the most recent data from the DOM.
-     */
     $(document).on("click", ".edit-btn", function () {
-        inputModal.data("editmode", true);
-        updateModalContent();
+        isEdit = true;
+        $(".modal-title").text("Edit Description");
+        $(".errormsg").remove();
+        $("input").removeClass("is-invalid");
 
         let button = $(this);
         currentRow = button.closest('tr');
-
         editUrl = button.attr("data-url");
         $("#name").val(button.attr("data-name"));
         inputModal.modal("show");
     });
 
-    /**
-     * SAVE BUTTON AJAX
-     */
+    // --- Save Logic ---
     $(document).on("click", ".save-btn", function (e) {
         e.preventDefault();
         const btn = $(this);
@@ -91,7 +63,6 @@ $(document).ready(function () {
 
         let type = isEdit ? "PATCH" : "POST";
         let url = isEdit ? editUrl : createUrl;
-
         let name = $("#name").val();
         let description_gp_id = $("#description_gp_id").val();
 
@@ -106,19 +77,17 @@ $(document).ready(function () {
             success: function (res) {
                 if (isEdit) {
                     updateExistingRow(res.data);
-                    showAlert('success', res.message ?? 'Updated successfully.');
                 } else {
                     addNewRow(res.data);
-                    showAlert('success', res.message ?? 'Added successfully.');
                 }
                 inputModal.modal("hide");
+                showAlert('success', res.message ?? 'Success');
                 resetBtnState(btn);
             },
             error: function (xhr) {
                 resetBtnState(btn);
                 $(".errormsg").remove();
-
-                if (xhr.responseJSON && xhr.responseJSON.errors) {
+                if (xhr.responseJSON?.errors) {
                     Object.keys(xhr.responseJSON.errors).forEach((key) => {
                         $(`#${key}`).addClass("is-invalid").after(`<label class="errormsg text-danger">${xhr.responseJSON.errors[key]}</label>`);
                     });
@@ -127,39 +96,15 @@ $(document).ready(function () {
         });
     });
 
-    function resetBtnState(btn) {
-        btn.attr("disabled", false);
-        $(".indicator-progress").hide();
-        $(".indicator-label").show();
-    }
-
     /**
-     * UPDATE EXISTING ROW
-     */
-    function updateExistingRow(data) {
-        // 1. Update visual UI
-        currentRow.find('.name').text(data.name);
-
-        // 2. Update attributes so next edit shows new value
-        const editBtn = currentRow.find('.edit-btn');
-        editBtn.attr("data-name", data.name);
-
-        // 3. Update DataTable cache
-        table.cell(currentRow, 1).data(data.name);
-
-        // 4. Draw without sorting conflict and fix numbering
-        table.draw(false);
-        reIndexTable();
-    }
-
-    /**
-     * ADD NEW ROW (PREPEND)
+     * ADD NEW ROW
      */
     function addNewRow(data) {
         const template = document.querySelector('#row-template');
         const clone = template.content.cloneNode(true);
         const tr = clone.querySelector('tr');
 
+        // Map data to template
         tr.id = data.description_id;
         tr.setAttribute('data-id', data.description_id);
         tr.querySelector('.name').textContent = data.name;
@@ -175,19 +120,35 @@ $(document).ready(function () {
         delBtn.setAttribute('data-url', deleteUrl);
         delBtn.setAttribute('data-id', data.description_id);
 
-        // 1. Physical Prepend to HTML
-        $('#description-table tbody').prepend(tr);
+        // 1. Add to DataTables internal memory first
+        let newRow = table.row.add($(tr)).draw(false);
 
-        // 2. Register row in DataTable (without immediate draw)
-        table.row.add($(tr));
+        // 2. Physically move the newly created row to the top of the HTML
+        $(newRow.node()).prependTo('#description-table tbody');
 
-        // 3. Fix the serial numbers
+        reIndexTable();
+    }
+
+    /**
+     * UPDATE EXISTING ROW
+     * We update the HTML and sync the cache without re-ordering.
+     */
+    function updateExistingRow(data) {
+        // 1. Update the visual UI
+        currentRow.find('.name').text(data.name);
+
+        // 2. Update button attributes for the next edit
+        currentRow.find('.edit-btn').attr("data-name", data.name);
+
+        // 3. Update DataTables internal cache for this row only
+        // .invalidate() syncs the search engine with the new HTML.
+        table.row(currentRow).invalidate();
+
         reIndexTable();
     }
 
     /**
      * RE-INDEX THE FIRST COLUMN (#)
-     * Loops through visual rows and sets numbers 1, 2, 3...
      */
     function reIndexTable() {
         $('#description-table tbody tr').each(function (idx) {

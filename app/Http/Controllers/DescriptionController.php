@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\Services\DescriptionServiceInterface;
 use App\Http\Requests\DescriptionDeleteRequest;
 use App\Http\Requests\DescriptionGroupDeleteRequest;
 use App\Http\Requests\DescriptionGroupRequest;
 use App\Http\Requests\DescriptionRequest;
+use App\Services\DescriptionService;
 use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
@@ -21,9 +21,9 @@ class DescriptionController extends Controller
 
     /**
      * Constrator
-     * @param DescriptionServiceInterface $descriptionService
+     * @param DescriptionService $descriptionService
      */
-    public function __construct(DescriptionServiceInterface $descriptionService)
+    public function __construct(DescriptionService $descriptionService)
     {
         $this->descriptionService = $descriptionService;
     }
@@ -96,9 +96,9 @@ class DescriptionController extends Controller
      * @param DescriptionDeleteRequest $request
      * @return RedirectResponse
      */
-    public function deleteDescription(DescriptionDeleteRequest $request)
+    public function deleteDescription(Request $request)
     {
-        $request = $request->validated();
+        $descId = (int) $request->route('description_id');
         $result = $this->descriptionService->deleteDescription($request['description_id']);
         if ($result) {
             return redirect()->route('description_gps.descriptions.list', $this->_resource->description_gp_id)->with('success', __("messages.delete_success"));
@@ -127,13 +127,12 @@ class DescriptionController extends Controller
     /**
      * Delete Description group
      *
-     * @param DescriptionGroupDeleteRequest $request
+     * @param int $descGpId
      * @return RedirectResponse
      */
-    public function gpDelete(DescriptionGroupDeleteRequest $request)
+    public function gpDelete(int $descGpId)
     {
-        $request = $request->validated();
-        $result = $this->descriptionService->deleteDescriptionGp($request['description_gp_id']);
+        $result = $this->descriptionService->deleteDescriptionGp($descGpId);
         if ($result) {
             return redirect()->route('description_gps.list')->with('success', __("messages.delete_success"));
         } else {

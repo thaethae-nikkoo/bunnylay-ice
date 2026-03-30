@@ -3,29 +3,16 @@ $(document).ready(function () {
 
     /**
      * 1. INITIALIZE DATATABLE
-     * We check if it exists first to avoid the "Cannot reinitialise" warning.
-     * 'ordering: false' is used to ensure our manual 'prepend' order stays at the top.
+     * 'ordering: false' is crucial to keep our manual prepend order.
      */
-    let table;
-    if ($.fn.dataTable.isDataTable('#gp-datatable')) {
-        table = $('#gp-datatable').DataTable();
-    } else {
-        table = $('#gp-datatable').DataTable({
-            "ordering": false,
-            "pageLength": 25,
-            "retrieve": true
-        });
-    }
+    let table = $('#gp-datatable').DataTable({
+        "ordering": false,
+        "pageLength": 25,
+        "retrieve": true
+    });
 
-    let editUrl;
-    let createUrl = vars("create_url");
-    let isEdit = false;
-    let currentRow;
+    let editUrl, createUrl = vars("create_url"), isEdit = false, currentRow;
 
-    /**
-     * SHOW ALERT MESSAGE
-     * Displays a dismissible Bootstrap alert in the '#alert-container'.
-     */
     function showAlert(type, message) {
         const icon = type === 'success' ? 'bx-check-circle' : 'bx-error-circle';
         const alertHtml = `
@@ -39,9 +26,6 @@ $(document).ready(function () {
         setTimeout(() => { $('.alert').alert('close'); }, 5000);
     }
 
-    /**
-     * OPEN MODAL FOR NEW ENTRY
-     */
     $(document).on("click", "#create-btn", function () {
         isEdit = false;
         $(".modal-title").text("Add Description Group");
@@ -49,40 +33,25 @@ $(document).ready(function () {
         inputModal.modal("show");
     });
 
-    /**
-     * OPEN MODAL FOR EDITING
-     * Uses .attr() instead of .data() to ensure we get the latest updated values
-     * from the DOM instead of the jQuery cache.
-     */
     $(document).on("click", ".edit-btn", function () {
         isEdit = true;
         $(".modal-title").text("Edit Description Group");
         resetForm();
-
         let button = $(this);
-        currentRow = button.closest('tr');
-
+        currentRow = button.closest('tr'); // Capture the reference to the row
         editUrl = button.attr("data-url");
         $("#gp_name").val(button.attr("data-gp_name"));
-
         let type = button.attr("data-description_type");
         $(".description_type[value='" + type + "']").prop("checked", true);
-
         inputModal.modal("show");
     });
 
-    /**
-     * RESET FORM VALIDATION & INPUTS
-     */
     function resetForm() {
         $(".errormsg").remove();
         $("#gp_name").val("").removeClass("is-invalid");
         $("input[name='description_type']").prop("checked", false);
     }
 
-    /**
-     * SAVE BUTTON AJAX HANDLER (Create & Update)
-     */
     $(document).on("click", ".save-btn", function (e) {
         e.preventDefault();
         const btn = $(this);
@@ -100,16 +69,14 @@ $(document).ready(function () {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 "Content-Type": "application/json"
             },
-            url: url,
-            type: type,
-            data: JSON.stringify(formData),
+            url: url, type: type, data: JSON.stringify(formData),
             success: function (res) {
                 if (isEdit) {
                     updateExistingRow(res.data);
-                    showAlert('success', res.message || 'Updated successfully.');
+                    showAlert('success', 'Updated successfully.');
                 } else {
                     addNewRow(res.data);
-                    showAlert('success', res.message || 'Inserted successfully.');
+                    showAlert('success', 'Inserted successfully.');
                 }
                 inputModal.modal("hide");
             },
@@ -120,47 +87,21 @@ $(document).ready(function () {
                     Object.keys(errors).forEach(key => {
                         $(`#${key}`).addClass("is-invalid").after(`<label class="errormsg text-danger">${errors[key]}</label>`);
                     });
-                } else {
-                    showAlert('danger', 'Something went wrong.');
-                }
+                } else { showAlert('danger', 'Something went wrong.'); }
             },
             complete: function () { btn.attr("disabled", false); }
         });
     });
 
     /**
-     * UPDATE EXISTING ROW IN DOM & DATATABLE
-     * Ensures attributes are updated so the next Edit click shows new data.
-     */
-    function updateExistingRow(data) {
-        // 1. Update visible UI text
-        currentRow.find('.gp-name').text(data.gp_name);
-        currentRow.find('.description-type-text').text(data.description_type_text);
-
-        // 2. Update button attributes
-        const editBtn = currentRow.find('.edit-btn');
-        editBtn.attr("data-gp_name", data.gp_name);
-        editBtn.attr("data-description_type", data.description_type);
-
-        // 3. Sync with DataTable internal cache so search remains accurate
-        table.cell(currentRow, 1).data(data.gp_name);
-        table.cell(currentRow, 2).data(data.description_type_text);
-
-        // 4. Redraw without losing current page or sorting
-        table.draw(false);
-        reIndexTable();
-    }
-
-    /**
-     * PREPEND NEW ROW TO TABLE
-     * Clones a <template> and inserts it at the very top of the <tbody>.
+     * ADD NEW ROW
+     * Adds the row to the internal table object and prepends it to the DOM.
      */
     function addNewRow(data) {
         const template = document.querySelector('#row-template');
         const clone = template.content.cloneNode(true);
         const tr = clone.querySelector('tr');
 
-        // Set IDs and Data Attributes
         tr.setAttribute('data-id', data.description_gp_id);
         tr.id = data.description_gp_id;
 
@@ -181,19 +122,38 @@ $(document).ready(function () {
         delBtn.setAttribute('data-url', deleteUrl);
         delBtn.setAttribute('data-id', data.description_gp_id);
 
-        // 1. Physically prepend to the HTML table
-        $('#gp-datatable tbody').prepend(tr);
+        // Add to DataTable and immediately move to the top of the <tbody>
+        let newRowNode = table.row.add($(tr)).node();
+        $(newRowNode).prependTo('#gp-datatable tbody');
 
-        // 2. Add the row to DataTable object without a full redraw
-        table.row.add($(tr));
+        reIndexTable();
+    }
 
-        // 3. Re-calculate the # column indices (1, 2, 3...)
+    /**
+     * UPDATE EXISTING ROW
+     * Updates HTML values directly and invalidates row cache.
+     */
+    function updateExistingRow(data) {
+        // 1. Update visual text in the current row
+        currentRow.find('.gp-name').text(data.gp_name);
+        currentRow.find('.description-type-text').text(data.description_type_text);
+
+        // 2. Update button data-attributes for future edits
+        const editBtn = currentRow.find('.edit-btn');
+        editBtn.attr("data-gp_name", data.gp_name);
+        editBtn.attr("data-description_type", data.description_type);
+
+        /**
+         * 3. Sync internal search cache.
+         * invalidate() refreshes the search index from the updated DOM.
+         */
+        table.row(currentRow).invalidate();
         reIndexTable();
     }
 
     /**
      * RE-INDEX THE FIRST COLUMN (#)
-     * Loops through each row currently in the DOM to set sequential numbering.
+     * Loops through visible rows in the DOM to set row numbers.
      */
     function reIndexTable() {
         $('#gp-datatable tbody tr').each(function (idx) {

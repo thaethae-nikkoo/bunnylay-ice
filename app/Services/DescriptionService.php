@@ -2,23 +2,22 @@
 
 namespace App\Services;
 
-use App\Contracts\Dao\DescriptionDaoInterface;
-use App\Contracts\Services\DescriptionServiceInterface;
+use App\Dao\DescriptionDao;
 use App\Models\DescriptionGroup;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
 
-class DescriptionService implements DescriptionServiceInterface
+class DescriptionService
 {
     private $descriptionDao;
 
     /**
      * Constructor
      * @method __construct
-     * @param DescriptionDaoInterface $descriptionDao
+     * @param DescriptionDao $descriptionDao
      */
     public function __construct(
-        DescriptionDaoInterface $descriptionDao,
+        DescriptionDao $descriptionDao,
     ) {
         $this->descriptionDao = $descriptionDao;
     }
