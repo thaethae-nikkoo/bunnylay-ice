@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DescriptionController;
 use App\Http\Controllers\MachineController;
 use App\Http\Controllers\PaymentMethodController;
 use Illuminate\Support\Facades\Route;
@@ -73,6 +74,24 @@ Route::middleware(['superAdmin'])->group(function () {
             Route::patch('update', [PaymentMethodController::class, 'update'])->name('update');
             Route::post('change-status', [PaymentMethodController::class, 'changeStatus'])->name('changeStatus');
             Route::post('delete', [PaymentMethodController::class, 'delete'])->name('delete');
+        });
+    });
+
+    //------------ Description Routes ----------------
+    Route::prefix('description-groups')->name('description_gps.')->group(function () {
+        Route::get('list', [DescriptionController::class, 'gpList'])->name('list');
+        Route::post('create', [DescriptionController::class, 'gpcreate'])->name('create');
+        Route::group(['prefix' => '{description_gp_id}', 'where' => ['description_gp_id' => '[0-9]+'], 'middleware' => ['adminIsValidResource:description_gp']], function () {
+            Route::post('delete', [DescriptionController::class, 'gpDelete'])->name('delete');
+            Route::patch('update', [DescriptionController::class, 'gpUpdate'])->name('update');
+            Route::prefix('descriptions')->name('descriptions.')->group(function () {
+                Route::get('list', [DescriptionController::class, 'descriptionList'])->name('list');
+                Route::post('create', [DescriptionController::class, 'createDescription'])->name('create');
+                Route::group(['prefix' => '{description_id}', 'where' => ['description_id' => '[0-9]+'], 'middleware' => ['adminIsValidResource:description']], function () {
+                    Route::patch('update', [DescriptionController::class, 'updateDescription'])->name('update');
+                    Route::post('delete', [DescriptionController::class, 'deleteDescription'])->name('delete');
+                });
+            });
         });
     });
 

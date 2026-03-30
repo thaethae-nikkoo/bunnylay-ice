@@ -16,6 +16,7 @@ class ContractsServiceProvider extends ServiceProvider
             'AuthDao',
             'PaymentMethodDao',
             'MachineDao',
+            'DescriptionDao',
         ]);
 
         $this->bindContracts('services', [
@@ -23,6 +24,7 @@ class ContractsServiceProvider extends ServiceProvider
             'AuthService',
             'PaymentMethodService',
             'MachineService',
+            'DescriptionService',
         ]);
     }
 
