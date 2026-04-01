@@ -18,6 +18,10 @@ return [
     'payment_method' => [
         'payment_method.list'
     ],
+    'descriptions' => [
+        'description_gps.list',
+        'description_gps.descriptions.list',
+    ],
     'machines' => [
         'machines.index',
     ],

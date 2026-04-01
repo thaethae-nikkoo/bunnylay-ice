@@ -69,6 +69,12 @@
                 <div data-i18n="Analytics">ငွေပေးချေမှုအမျိုးအစား</div>
             </a>
         </li>
+        <li class="menu-item @if(is_active_route(config('sidemenus.descriptions'))) active @endif">
+            <a href="{{route('description_gps.list')}}" class="menu-link">
+               <i class="menu-icon tf-icons bx bx-list-check"></i>
+                <div data-i18n="Analytics">အကြောင်းအရာ</div>
+            </a>
+        </li>
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text"></span>
         </li>

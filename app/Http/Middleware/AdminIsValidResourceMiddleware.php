@@ -3,15 +3,8 @@
 namespace App\Http\Middleware;
 
 use App\Models\Admin;
-use App\Models\Expense;
-use App\Models\Export;
-use App\Models\ExportPayment;
-use App\Models\GoodPurchase;
-use App\Models\GoodPurchasePayment;
-use App\Models\GoodSale;
-use App\Models\GoodSalePayment;
-use App\Models\Income;
-use App\Models\Item;
+use App\Models\Description;
+use App\Models\DescriptionGroup;
 use App\Models\PaymentMethod;
 use Closure;
 use Illuminate\Http\Request;
@@ -38,6 +31,12 @@ class AdminIsValidResourceMiddleware
                 break;
             case "payment_method":
                 $res = PaymentMethod::findOrFail(Route::input('payment_method_id'));
+                break;
+            case "description_gp":
+                $res = DescriptionGroup::findOrFail(Route::input('description_gp_id'));
+                break;
+            case "description":
+                $res = Description::findOrFail(Route::input('description_id'));
                 break;
             default:
                 $res = null;

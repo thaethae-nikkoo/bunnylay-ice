@@ -54,4 +54,9 @@ return [
         'night' => 'Night',
         'whole_day' => 'Whole Day',
     ],
+    'description_type_key' => [
+        'income' => 1,
+        'expense' => 2,
+        'both' => 3
+    ],
 ];
